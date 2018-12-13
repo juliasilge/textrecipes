@@ -259,10 +259,10 @@ followed by modifying and filtering steps.</p>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/recipes/topics/reexports'>tidy</a></span>(<span class='no'>okc_rec</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
 #&gt;   terms  value id            
 #&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;         
-#&gt; 1 essay0 &lt;NA&gt;  tokenize_WmSev</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/recipes/topics/reexports'>tidy</a></span>(<span class='no'>okc_obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
+#&gt; 1 essay0 &lt;NA&gt;  tokenize_bxI1x</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/recipes/topics/reexports'>tidy</a></span>(<span class='no'>okc_obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
 #&gt;   terms          value id            
 #&gt;   &lt;S3: quosures&gt; &lt;chr&gt; &lt;chr&gt;         
-#&gt; 1 ~essay0        words tokenize_WmSev</div><div class='input'>
+#&gt; 1 ~essay0        words tokenize_bxI1x</div><div class='input'>
 <span class='no'>okc_obj_chars</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/recipes/topics/recipe'>recipe</a></span>(~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>okc_text</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>step_tokenize</span>(<span class='no'>essay0</span>, <span class='kw'>token</span> <span class='kw'>=</span> <span class='st'>"characters"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://www.rdocumentation.org/packages/recipes/topics/prep'>prep</a></span>(<span class='kw'>training</span> <span class='kw'>=</span> <span class='no'>okc_text</span>, <span class='kw'>retain</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
