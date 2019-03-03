@@ -8,7 +8,7 @@
 <title>Cookbook - Using more complex recipes involving text • textrecipes</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="../tidyverse.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../tidyverse-2.css" rel="stylesheet">
 <meta property="og:title" content="Cookbook - Using more complex recipes involving text">
 <meta property="og:description" content="">
@@ -92,7 +92,7 @@
       <h1>Cookbook - Using more complex recipes involving text</h1>
                         <h4 class="author">Emil Hvitfeldt</h4>
             
-            <h4 class="date">2018-12-18</h4>
+            <h4 class="date">2019-03-03</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/tidymodels/textrecipes/blob/master/vignettes/cookbook---using-more-complex-recipes-involving-text.Rmd"><code>vignettes/cookbook---using-more-complex-recipes-involving-text.Rmd</code></a></small>
       <div class="hidden name"><code>cookbook---using-more-complex-recipes-involving-text.Rmd</code></div>
@@ -122,7 +122,7 @@
 <a class="sourceLine" id="cb2-9" data-line-number="9"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/recipes/topics/prep">prep</a></span>(<span class="dt">training =</span> okc_text)</a>
 <a class="sourceLine" id="cb2-10" data-line-number="10">   </a>
 <a class="sourceLine" id="cb2-11" data-line-number="11"><span class="kw"><a href="https://www.rdocumentation.org/packages/recipes/topics/bake">bake</a></span>(okc_obj, okc_text) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">"tf_essay0"</span>))</a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">"tf_essay0"</span>))</a>
 <a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt; # A tibble: 750 x 4</span></a>
 <a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt;    tf_essay0_happy tf_essay0_i tf_essay0_sad tf_essay0_you</span></a>
 <a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt;              &lt;dbl&gt;       &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;</span></a>
@@ -136,7 +136,7 @@
 <a class="sourceLine" id="cb2-23" data-line-number="23"><span class="co">#&gt;  8               0           7             0             0</span></a>
 <a class="sourceLine" id="cb2-24" data-line-number="24"><span class="co">#&gt;  9               0           0             0             0</span></a>
 <a class="sourceLine" id="cb2-25" data-line-number="25"><span class="co">#&gt; 10               0          14             0             1</span></a>
-<a class="sourceLine" id="cb2-26" data-line-number="26"><span class="co">#&gt; # ... with 740 more rows</span></a></code></pre></div>
+<a class="sourceLine" id="cb2-26" data-line-number="26"><span class="co">#&gt; # … with 740 more rows</span></a></code></pre></div>
 </div>
 <div id="removing-words-in-addition-to-the-stop-words-list" class="section level2">
 <h2 class="hasAnchor">
@@ -154,7 +154,7 @@
 <a class="sourceLine" id="cb3-10" data-line-number="10"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/recipes/topics/prep">prep</a></span>(<span class="dt">training =</span> okc_text)</a>
 <a class="sourceLine" id="cb3-11" data-line-number="11">   </a>
 <a class="sourceLine" id="cb3-12" data-line-number="12"><span class="kw"><a href="https://www.rdocumentation.org/packages/recipes/topics/bake">bake</a></span>(okc_obj, okc_text) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">"tfidf_essay0"</span>))</a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">"tfidf_essay0"</span>))</a>
 <a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; # A tibble: 750 x 9,090</span></a>
 <a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt;    tfidf_essay0___… tfidf_essay0___… tfidf_essay0___… tfidf_essay0___…</span></a>
 <a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt;               &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span></a>
@@ -168,7 +168,7 @@
 <a class="sourceLine" id="cb3-24" data-line-number="24"><span class="co">#&gt;  8                0                0                0                0</span></a>
 <a class="sourceLine" id="cb3-25" data-line-number="25"><span class="co">#&gt;  9                0                0                0                0</span></a>
 <a class="sourceLine" id="cb3-26" data-line-number="26"><span class="co">#&gt; 10                0                0                0                0</span></a>
-<a class="sourceLine" id="cb3-27" data-line-number="27"><span class="co">#&gt; # ... with 740 more rows, and 9,086 more variables:</span></a>
+<a class="sourceLine" id="cb3-27" data-line-number="27"><span class="co">#&gt; # … with 740 more rows, and 9,086 more variables:</span></a>
 <a class="sourceLine" id="cb3-28" data-line-number="28"><span class="co">#&gt; #   tfidf_essay0__blank &lt;dbl&gt;, tfidf_essay0__updates_ &lt;dbl&gt;,</span></a>
 <a class="sourceLine" id="cb3-29" data-line-number="29"><span class="co">#&gt; #   tfidf_essay0_0 &lt;dbl&gt;, tfidf_essay0_01 &lt;dbl&gt;, tfidf_essay0_0aare &lt;dbl&gt;,</span></a>
 <a class="sourceLine" id="cb3-30" data-line-number="30"><span class="co">#&gt; #   tfidf_essay0_0abilly &lt;dbl&gt;, tfidf_essay0_0aboondocks &lt;dbl&gt;,</span></a>
@@ -229,7 +229,7 @@
 <a class="sourceLine" id="cb4-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/recipes/topics/prep">prep</a></span>(<span class="dt">training =</span> okc_text)</a>
 <a class="sourceLine" id="cb4-8" data-line-number="8">   </a>
 <a class="sourceLine" id="cb4-9" data-line-number="9"><span class="kw"><a href="https://www.rdocumentation.org/packages/recipes/topics/bake">bake</a></span>(okc_obj, okc_text) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">"tf_essay0"</span>))</a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">"tf_essay0"</span>))</a>
 <a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; # A tibble: 750 x 26</span></a>
 <a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt;    tf_essay0_a tf_essay0_b tf_essay0_c tf_essay0_d tf_essay0_e tf_essay0_f</span></a>
 <a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt;          &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;</span></a>
@@ -243,7 +243,7 @@
 <a class="sourceLine" id="cb4-21" data-line-number="21"><span class="co">#&gt;  8          66          13           9          23          69          12</span></a>
 <a class="sourceLine" id="cb4-22" data-line-number="22"><span class="co">#&gt;  9           1           0           0           0           1           0</span></a>
 <a class="sourceLine" id="cb4-23" data-line-number="23"><span class="co">#&gt; 10         250          76         115         106         274          53</span></a>
-<a class="sourceLine" id="cb4-24" data-line-number="24"><span class="co">#&gt; # ... with 740 more rows, and 20 more variables: tf_essay0_g &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb4-24" data-line-number="24"><span class="co">#&gt; # … with 740 more rows, and 20 more variables: tf_essay0_g &lt;dbl&gt;,</span></a>
 <a class="sourceLine" id="cb4-25" data-line-number="25"><span class="co">#&gt; #   tf_essay0_h &lt;dbl&gt;, tf_essay0_i &lt;dbl&gt;, tf_essay0_j &lt;dbl&gt;,</span></a>
 <a class="sourceLine" id="cb4-26" data-line-number="26"><span class="co">#&gt; #   tf_essay0_k &lt;dbl&gt;, tf_essay0_l &lt;dbl&gt;, tf_essay0_m &lt;dbl&gt;,</span></a>
 <a class="sourceLine" id="cb4-27" data-line-number="27"><span class="co">#&gt; #   tf_essay0_n &lt;dbl&gt;, tf_essay0_o &lt;dbl&gt;, tf_essay0_p &lt;dbl&gt;,</span></a>
@@ -269,7 +269,7 @@
 <a class="sourceLine" id="cb5-10" data-line-number="10"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/recipes/topics/prep">prep</a></span>(<span class="dt">training =</span> okc_text)</a>
 <a class="sourceLine" id="cb5-11" data-line-number="11">   </a>
 <a class="sourceLine" id="cb5-12" data-line-number="12"><span class="kw"><a href="https://www.rdocumentation.org/packages/recipes/topics/bake">bake</a></span>(okc_obj, okc_text) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw"><a href="http://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">"tfidf_essay0"</span>))</a>
+<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">starts_with</a></span>(<span class="st">"tfidf_essay0"</span>))</a>
 <a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt; # A tibble: 750 x 500</span></a>
 <a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt;    `tfidf_essay0_a… `tfidf_essay0_a… `tfidf_essay0_a… `tfidf_essay0_a…</span></a>
 <a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt;               &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span></a>
@@ -283,7 +283,7 @@
 <a class="sourceLine" id="cb5-24" data-line-number="24"><span class="co">#&gt;  8                0                0                0                0</span></a>
 <a class="sourceLine" id="cb5-25" data-line-number="25"><span class="co">#&gt;  9                0                0                0                0</span></a>
 <a class="sourceLine" id="cb5-26" data-line-number="26"><span class="co">#&gt; 10                0                0                0                0</span></a>
-<a class="sourceLine" id="cb5-27" data-line-number="27"><span class="co">#&gt; # ... with 740 more rows, and 496 more variables: `tfidf_essay0_a br</span></a>
+<a class="sourceLine" id="cb5-27" data-line-number="27"><span class="co">#&gt; # … with 740 more rows, and 496 more variables: `tfidf_essay0_a br</span></a>
 <a class="sourceLine" id="cb5-28" data-line-number="28"><span class="co">#&gt; #   br` &lt;dbl&gt;, `tfidf_essay0_a class ilink` &lt;dbl&gt;, `tfidf_essay0_a coupl</span></a>
 <a class="sourceLine" id="cb5-29" data-line-number="29"><span class="co">#&gt; #   of` &lt;dbl&gt;, `tfidf_essay0_a few year` &lt;dbl&gt;, `tfidf_essay0_a good</span></a>
 <a class="sourceLine" id="cb5-30" data-line-number="30"><span class="co">#&gt; #   time` &lt;dbl&gt;, `tfidf_essay0_a i can` &lt;dbl&gt;, `tfidf_essay0_a laid</span></a>
