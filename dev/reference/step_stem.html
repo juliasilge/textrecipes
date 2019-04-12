@@ -83,7 +83,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -107,7 +107,7 @@
 </li>
         <li>
   <a href="https://github.com/tidymodels/textrecipes">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -136,7 +136,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>step_stem</span>(<span class='no'>recipe</span>, <span class='no'>...</span>, <span class='kw'>role</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>trained</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>columns</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>options</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>stemmer</span> <span class='kw'>=</span> <span class='st'>"SnowballC"</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>options</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>custom_stemmer</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'>rand_id</span>(<span class='st'>"stem"</span>))
 
 <span class='co'># S3 method for step_stem</span>
@@ -175,12 +175,12 @@ encoding. This is `NULL` until the step is trained by
     </tr>
     <tr>
       <th>options</th>
-      <td><p>A list of options passed to the stemmer</p></td>
+      <td><p>A list of options passed to the stemmer function.</p></td>
     </tr>
     <tr>
-      <th>stemmer</th>
-      <td><p>a character to select stemming method. Defaults
-to "SnowballC".</p></td>
+      <th>custom_stemmer</th>
+      <td><p>A custom stemming function. If none is provided
+it will default to "SnowballC".</p></td>
     </tr>
     <tr>
       <th>skip</th>
@@ -213,7 +213,7 @@ subsequent operations.</p></td>
 organize, organizes, and organizing. In many situations it is beneficial
 to have these words condensed into one to allow for a smaller pool of 
 words. Stemming is the act of choping off the end of words using a set
- of heristics.</p>
+ of heuristics.</p>
 <p>Note that the steming will only be done at the end of the string and 
 will therefore not work reliably on ngrams or sentences.</p>
     
@@ -252,9 +252,34 @@ will therefore not work reliably on ngrams or sentences.</p>
 #&gt;   terms  value id        
 #&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;     
 #&gt; 1 essay0 &lt;NA&gt;  stem_CErTV</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/recipes/topics/reexports'>tidy</a></span>(<span class='no'>okc_obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
-#&gt;   terms          value     id        
-#&gt;   &lt;S3: quosures&gt; &lt;chr&gt;     &lt;chr&gt;     
-#&gt; 1 ~essay0        SnowballC stem_CErTV</div></pre>
+#&gt;   terms          is_custom_stemmer id        
+#&gt;   &lt;S3: quosures&gt; &lt;lgl&gt;             &lt;chr&gt;     
+#&gt; 1 ~essay0        TRUE              stem_CErTV</div><div class='input'>
+<span class='co'># Using custom stemmer. Here a custom stemmer that removes the last letter</span>
+<span class='co'># if it is a s.</span>
+<span class='no'>remove_s</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/grep'>gsub</a></span>(<span class='st'>"s$"</span>, <span class='st'>""</span>, <span class='no'>x</span>)
+
+<span class='no'>okc_rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/recipes/topics/recipe'>recipe</a></span>(~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>okc_text</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='step_tokenize.html'>step_tokenize</a></span>(<span class='no'>essay0</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>step_stem</span>(<span class='no'>essay0</span>, <span class='kw'>custom_stemmer</span> <span class='kw'>=</span> <span class='no'>remove_s</span>)
+
+<span class='no'>okc_obj</span> <span class='kw'>&lt;-</span> <span class='no'>okc_rec</span> <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/recipes/topics/prep'>prep</a></span>(<span class='kw'>training</span> <span class='kw'>=</span> <span class='no'>okc_text</span>, <span class='kw'>retain</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='fu'><a href='https://www.rdocumentation.org/packages/recipes/topics/juice'>juice</a></span>(<span class='no'>okc_obj</span>, <span class='no'>essay0</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>slice</span>(<span class='fl'>1</span>:<span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 1
+#&gt;   essay0     
+#&gt;   &lt;list&gt;     
+#&gt; 1 &lt;chr [184]&gt;
+#&gt; 2 &lt;chr [24]&gt; </div><div class='input'>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/recipes/topics/juice'>juice</a></span>(<span class='no'>okc_obj</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>slice</span>(<span class='fl'>2</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>pull</span>(<span class='no'>essay0</span>)</div><div class='output co'>#&gt; [[1]]
+#&gt;  [1] "i'm"      "chill"    "and"      "steady"   "br"       "i'm"     
+#&gt;  [7] "a"        "teacher"  "amp"      "musician" "br"       "i"       
+#&gt; [13] "like"     "playing"  "outside"  "dislike"  "school"   "night"   
+#&gt; [19] "br"       "and"      "i'm"      "very"     "very"     "lucky"   
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

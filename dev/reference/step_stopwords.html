@@ -83,7 +83,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -107,7 +107,7 @@
 </li>
         <li>
   <a href="https://github.com/tidymodels/textrecipes">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -262,10 +262,10 @@ combination of these two arguments.</p>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/recipes/topics/reexports'>tidy</a></span>(<span class='no'>okc_rec</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
 #&gt;   terms  value keep  id             
 #&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;lgl&gt; &lt;chr&gt;          
-#&gt; 1 essay0 &lt;NA&gt;  NA    stopwords_mzdy8</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/recipes/topics/reexports'>tidy</a></span>(<span class='no'>okc_obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
+#&gt; 1 essay0 &lt;NA&gt;  NA    stopwords_TdGRQ</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/recipes/topics/reexports'>tidy</a></span>(<span class='no'>okc_obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 4
 #&gt;   terms          value    keep  id             
 #&gt;   &lt;S3: quosures&gt; &lt;chr&gt;    &lt;lgl&gt; &lt;chr&gt;          
-#&gt; 1 ~essay0        snowball FALSE stopwords_mzdy8</div><div class='input'><span class='co'># With a custom stopwords list</span>
+#&gt; 1 ~essay0        snowball FALSE stopwords_TdGRQ</div><div class='input'><span class='co'># With a custom stopwords list</span>
 
 <span class='no'>okc_rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/recipes/topics/recipe'>recipe</a></span>(~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>okc_text</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='step_tokenize.html'>step_tokenize</a></span>(<span class='no'>essay0</span>) <span class='kw'>%&gt;%</span>
