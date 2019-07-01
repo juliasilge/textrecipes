@@ -5,15 +5,15 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Extra 'Recipes' for Text Processing • textrecipes</title>
+<title>Extra Recipes for Text Processing • textrecipes</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="tidyverse.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><link href="tidyverse-2.css" rel="stylesheet">
-<meta property="og:title" content="Extra 'Recipes' for Text Processing">
+<meta property="og:title" content="Extra Recipes for Text Processing">
 <meta property="og:description" content="Converting text to numerical features requires specifically
     created procedures, which are implemented as steps according to the 
-    'recipes' package. These steps allows for tokenization, filtering,
+    recipes package. These steps allows for tokenization, filtering,
     counting (tf and tfidf) and feature hashing.">
 <meta name="twitter:card" content="summary">
 <meta name="robots" content="noindex">
@@ -29,7 +29,7 @@
 </script>
 </head>
 <body>
-    <div class="container template-article">
+    <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -89,13 +89,9 @@
 <!--/.navbar -->
 
       
-      </header><div class="row">
-  <div class="col-md-9 contents">
-    
 
-    
-    
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+      </header><div class="row">
+  <div class="contents col-md-9">
 <div id="textrecipes" class="section level1">
 
 
@@ -108,28 +104,28 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>textrecipes is not avaliable from <a href="https://CRAN.R-project.org">CRAN</a> yet. But the development version can be downloaded with:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">require</a></span>(<span class="st">"devtools"</span>)</a>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="st">"devtools"</span>)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">install_github</span>(<span class="st">"tidymodels/textrecipes"</span>)</a></code></pre></div>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
 <p>In the following example we will go through the steps needed to convert a character variable to the TF-IDF of its tokenized words after removing stopwords and limeting ourself to only the 100 most used words. We will be conduction this preprosession on the variable <code>essay0</code> and <code>essay1</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(recipes)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(textrecipes)</a>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(recipes)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(textrecipes)</a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(okc_text)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(okc_text)</a>
 <a class="sourceLine" id="cb2-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">okc_rec &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/recipes/topics/recipe">recipe</a></span>(<span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> okc_text) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">okc_rec &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/recipes/man/recipe.html">recipe</a></span>(<span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> okc_text) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb2-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="reference/step_tokenize.html">step_tokenize</a></span>(essay0, essay1) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Tokenizes to words by default</span></a>
 <a class="sourceLine" id="cb2-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="reference/step_stopwords.html">step_stopwords</a></span>(essay0, essay1) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Uses the english snowball list by default</span></a>
 <a class="sourceLine" id="cb2-9" data-line-number="9"><span class="st">  </span><span class="kw"><a href="reference/step_tokenfilter.html">step_tokenfilter</a></span>(essay0, essay1, <span class="dt">max_tokens =</span> <span class="dv">100</span>) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb2-10" data-line-number="10"><span class="st">  </span><span class="kw"><a href="reference/step_tfidf.html">step_tfidf</a></span>(essay0, essay1)</a>
 <a class="sourceLine" id="cb2-11" data-line-number="11">   </a>
 <a class="sourceLine" id="cb2-12" data-line-number="12">okc_obj &lt;-<span class="st"> </span>okc_rec <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/recipes/topics/prep">prep</a></span>(<span class="dt">training =</span> okc_text)</a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/recipes/man/prep.html">prep</a></span>(<span class="dt">training =</span> okc_text)</a>
 <a class="sourceLine" id="cb2-14" data-line-number="14">   </a>
-<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/recipes/topics/bake">bake</a></span>(okc_obj, okc_text), <span class="dt">list.len =</span> <span class="dv">15</span>)</a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="kw"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/recipes/man/bake.html">bake</a></span>(okc_obj, okc_text), <span class="dt">list.len =</span> <span class="dv">15</span>)</a>
 <a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt; Classes 'tbl_df', 'tbl' and 'data.frame':    750 obs. of  208 variables:</span></a>
 <a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt;  $ essay2                 : Factor w/ 749 levels "- being myself. i'm comfortable in my own skin.&lt;br /&gt;\n- cooking, eating and washing dishes&lt;br /&gt;\n- sleeping &amp;"| __truncated__,..: 743 574 595 385 109 367 719 721 225 449 ...</span></a>
 <a class="sourceLine" id="cb2-18" data-line-number="18"><span class="co">#&gt;  $ essay3                 : Factor w/ 737 levels "... is how batman i am.&lt;br /&gt;\n&lt;br /&gt;\ni'm a huge geek.&lt;br /&gt;\n&lt;br /&gt;\nrecently i've heard \"you're like a stra"| __truncated__,..: 655 192 523 403 675 698 51 46 417 309 ...</span></a>
@@ -152,7 +148,7 @@
 <h2 class="hasAnchor">
 <a href="#type-chart" class="anchor"></a>Type chart</h2>
 <p><strong>textrecipes</strong> includes a little departure in design from <strong>recipes</strong> in the sense that it allows some input and output to be in the form of list columns. To avoind confusion here is a table of steps with their expected input and output respectively. Notice how you need to end with numeric for future analysis to work.</p>
-<table class="table table">
+<table class="table">
 <thead><tr class="header">
 <th>Step</th>
 <th>Input</th>
@@ -202,7 +198,7 @@
 </tbody>
 </table>
 <p>This means that valid sequences includes</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/recipes/topics/recipe">recipe</a></span>(<span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> data) <span class="op">%&gt;%</span></a>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/pkg/recipes/man/recipe.html">recipe</a></span>(<span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> data) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="reference/step_tokenize.html">step_tokenize</a></span>(text) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="reference/step_stem.html">step_stem</a></span>(text) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb3-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="reference/step_stopwords.html">step_stopwords</a></span>(text) <span class="op">%&gt;%</span></a>
@@ -211,7 +207,7 @@
 <a class="sourceLine" id="cb3-7" data-line-number="7"></a>
 <a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co"># or</span></a>
 <a class="sourceLine" id="cb3-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/recipes/topics/recipe">recipe</a></span>(<span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> data) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="kw"><a href="https://rdrr.io/pkg/recipes/man/recipe.html">recipe</a></span>(<span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> data) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb3-11" data-line-number="11"><span class="st">  </span><span class="kw"><a href="reference/step_tokenize.html">step_tokenize</a></span>(text) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb3-12" data-line-number="12"><span class="st">  </span><span class="kw"><a href="reference/step_stem.html">step_stem</a></span>(text) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb3-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="reference/step_tfidf.html">step_tfidf</a></span>(text)</a></code></pre></div>
@@ -245,7 +241,7 @@
 </ul>
 </div>
 
-      <div class="dev-status">
+  <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://travis-ci.org/tidymodels/textrecipes"><img src="https://travis-ci.org/tidymodels/textrecipes.svg?branch=master" alt="Travis build status"></a></li>
@@ -256,7 +252,6 @@
 </ul>
 </div>
 </div>
-
 </div>
 
 
@@ -270,10 +265,12 @@
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>
