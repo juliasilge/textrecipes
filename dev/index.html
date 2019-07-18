@@ -103,51 +103,53 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>textrecipes is not available from <a href="https://CRAN.R-project.org">CRAN</a> yet. But the development version can be downloaded with:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="st">"devtools"</span>)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">install_github</span>(<span class="st">"tidymodels/textrecipes"</span>)</a></code></pre></div>
+<p>You can install the released version of textrecipes from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"textrecipes"</span>)</a></code></pre></div>
+<p>Install the development version from GitHub with:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="st">"devtools"</span>)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">install_github</span>(<span class="st">"tidymodels/textrecipes"</span>)</a></code></pre></div>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
-<p>In the following example we will go through the steps needed to convert a character variable to the TF-IDF of its tokenized words after removing stopwords and limiting ourself to only the 100 most used words. We will be conduction this preprocessing on the variable <code>essay0</code> and <code>essay1</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(recipes)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(textrecipes)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(okc_text)</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">okc_rec &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/recipes/man/recipe.html">recipe</a></span>(<span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> okc_text) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="reference/step_tokenize.html">step_tokenize</a></span>(essay0, essay1) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Tokenizes to words by default</span></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="reference/step_stopwords.html">step_stopwords</a></span>(essay0, essay1) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Uses the english snowball list by default</span></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="st">  </span><span class="kw"><a href="reference/step_tokenfilter.html">step_tokenfilter</a></span>(essay0, essay1, <span class="dt">max_tokens =</span> <span class="dv">100</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="st">  </span><span class="kw"><a href="reference/step_tfidf.html">step_tfidf</a></span>(essay0, essay1)</a>
-<a class="sourceLine" id="cb2-11" data-line-number="11">   </a>
-<a class="sourceLine" id="cb2-12" data-line-number="12">okc_obj &lt;-<span class="st"> </span>okc_rec <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/recipes/man/prep.html">prep</a></span>(<span class="dt">training =</span> okc_text)</a>
-<a class="sourceLine" id="cb2-14" data-line-number="14">   </a>
-<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="kw"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/recipes/man/bake.html">bake</a></span>(okc_obj, okc_text), <span class="dt">list.len =</span> <span class="dv">15</span>)</a>
-<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt; Classes 'tbl_df', 'tbl' and 'data.frame':    750 obs. of  208 variables:</span></a>
-<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt;  $ essay2                 : Factor w/ 749 levels "- being myself. i'm comfortable in my own skin.&lt;br /&gt;\n- cooking, eating and washing dishes&lt;br /&gt;\n- sleeping &amp;"| __truncated__,..: 743 574 595 385 109 367 719 721 225 449 ...</span></a>
-<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="co">#&gt;  $ essay3                 : Factor w/ 737 levels "... is how batman i am.&lt;br /&gt;\n&lt;br /&gt;\ni'm a huge geek.&lt;br /&gt;\n&lt;br /&gt;\nrecently i've heard \"you're like a stra"| __truncated__,..: 655 192 523 403 675 698 51 46 417 309 ...</span></a>
-<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="co">#&gt;  $ essay4                 : Factor w/ 750 levels "- wealth of nations, the social contract, the prince.&lt;br /&gt;\n&lt;br /&gt;\n- coming to america, willy wonka and the c"| __truncated__,..: 611 634 695 638 104 113 378 86 293 323 ...</span></a>
-<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="co">#&gt;  $ essay5                 : Factor w/ 750 levels "- a tent&lt;br /&gt;\n- a good pillow&lt;br /&gt;\n- a funny hat in cold weather&lt;br /&gt;\n- genuinely good and trustworthy fr"| __truncated__,..: 344 237 536 271 7 383 128 52 688 750 ...</span></a>
-<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="co">#&gt;  $ essay6                 : Factor w/ 749 levels "- being happy with simple things.&lt;br /&gt;\n- whether lightness is unbearable.&lt;br /&gt;\n- how to get to know someone"| __truncated__,..: 466 105 332 215 568 35 506 480 317 326 ...</span></a>
-<a class="sourceLine" id="cb2-22" data-line-number="22"><span class="co">#&gt;  $ essay7                 : Factor w/ 750 levels "-out to dinner.&lt;br /&gt;\n-at the movies.&lt;br /&gt;\n-having drinks at a spot where i like the atmosphere.&lt;br /&gt;\n-coo"| __truncated__,..: 658 419 50 292 552 248 530 116 144 461 ...</span></a>
-<a class="sourceLine" id="cb2-23" data-line-number="23"><span class="co">#&gt;  $ essay8                 : Factor w/ 747 levels "-bad news everybody i received a message from the people of 2135,\nthey said the aliens attacked and devastated"| __truncated__,..: 254 704 622 548 709 497 347 298 76 42 ...</span></a>
-<a class="sourceLine" id="cb2-24" data-line-number="24"><span class="co">#&gt;  $ essay9                 : Factor w/ 743 levels "- &lt;em&gt;you think i'm the bee's knees&lt;/em&gt; (although obviously that\nwon't slim down the pool at all)&lt;br /&gt;\n- &lt;e"| __truncated__,..: 698 643 540 638 530 137 378 320 17 283 ...</span></a>
-<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="co">#&gt;  $ tfidf_essay0_also      : num  0 0 0.0213 0.1888 0 ...</span></a>
-<a class="sourceLine" id="cb2-26" data-line-number="26"><span class="co">#&gt;  $ tfidf_essay0_always    : num  0 0 0 0 0 ...</span></a>
-<a class="sourceLine" id="cb2-27" data-line-number="27"><span class="co">#&gt;  $ tfidf_essay0_amp       : num  0.457 0.567 0 0 0 ...</span></a>
-<a class="sourceLine" id="cb2-28" data-line-number="28"><span class="co">#&gt;  $ tfidf_essay0_anything  : num  0 0 0.108 0 0 ...</span></a>
-<a class="sourceLine" id="cb2-29" data-line-number="29"><span class="co">#&gt;  $ tfidf_essay0_area      : num  0 0 0 0 0 ...</span></a>
-<a class="sourceLine" id="cb2-30" data-line-number="30"><span class="co">#&gt;  $ tfidf_essay0_around    : num  0 0 0.0327 0 0 ...</span></a>
-<a class="sourceLine" id="cb2-31" data-line-number="31"><span class="co">#&gt;  $ tfidf_essay0_art       : num  0 0 0 0 0 ...</span></a>
-<a class="sourceLine" id="cb2-32" data-line-number="32"><span class="co">#&gt;   [list output truncated]</span></a></code></pre></div>
+<p>In the following example we will go through the steps needed to convert a character variable to the TF-IDF of its tokenized words after removing stopwords and limeting ourself to only the 100 most used words. We will be conduction this preprosession on the variable <code>essay0</code> and <code>essay1</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(recipes)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(textrecipes)</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(okc_text)</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">okc_rec &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/recipes/man/recipe.html">recipe</a></span>(<span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> okc_text) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="reference/step_tokenize.html">step_tokenize</a></span>(essay0, essay1) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Tokenizes to words by default</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="reference/step_stopwords.html">step_stopwords</a></span>(essay0, essay1) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Uses the english snowball list by default</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="st">  </span><span class="kw"><a href="reference/step_tokenfilter.html">step_tokenfilter</a></span>(essay0, essay1, <span class="dt">max_tokens =</span> <span class="dv">100</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="st">  </span><span class="kw"><a href="reference/step_tfidf.html">step_tfidf</a></span>(essay0, essay1)</a>
+<a class="sourceLine" id="cb3-11" data-line-number="11">   </a>
+<a class="sourceLine" id="cb3-12" data-line-number="12">okc_obj &lt;-<span class="st"> </span>okc_rec <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/recipes/man/prep.html">prep</a></span>(<span class="dt">training =</span> okc_text)</a>
+<a class="sourceLine" id="cb3-14" data-line-number="14">   </a>
+<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="kw"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/recipes/man/bake.html">bake</a></span>(okc_obj, okc_text), <span class="dt">list.len =</span> <span class="dv">15</span>)</a>
+<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt; Classes 'tbl_df', 'tbl' and 'data.frame':    750 obs. of  208 variables:</span></a>
+<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt;  $ essay2                 : Factor w/ 749 levels "- being myself. i'm comfortable in my own skin.&lt;br /&gt;\n- cooking, eating and washing dishes&lt;br /&gt;\n- sleeping &amp;"| __truncated__,..: 743 574 595 385 109 367 719 721 225 449 ...</span></a>
+<a class="sourceLine" id="cb3-18" data-line-number="18"><span class="co">#&gt;  $ essay3                 : Factor w/ 737 levels "... is how batman i am.&lt;br /&gt;\n&lt;br /&gt;\ni'm a huge geek.&lt;br /&gt;\n&lt;br /&gt;\nrecently i've heard \"you're like a stra"| __truncated__,..: 655 192 523 403 675 698 51 46 417 309 ...</span></a>
+<a class="sourceLine" id="cb3-19" data-line-number="19"><span class="co">#&gt;  $ essay4                 : Factor w/ 750 levels "- wealth of nations, the social contract, the prince.&lt;br /&gt;\n&lt;br /&gt;\n- coming to america, willy wonka and the c"| __truncated__,..: 611 634 695 638 104 113 378 86 293 323 ...</span></a>
+<a class="sourceLine" id="cb3-20" data-line-number="20"><span class="co">#&gt;  $ essay5                 : Factor w/ 750 levels "- a tent&lt;br /&gt;\n- a good pillow&lt;br /&gt;\n- a funny hat in cold weather&lt;br /&gt;\n- genuinely good and trustworthy fr"| __truncated__,..: 344 237 536 271 7 383 128 52 688 750 ...</span></a>
+<a class="sourceLine" id="cb3-21" data-line-number="21"><span class="co">#&gt;  $ essay6                 : Factor w/ 749 levels "- being happy with simple things.&lt;br /&gt;\n- whether lightness is unbearable.&lt;br /&gt;\n- how to get to know someone"| __truncated__,..: 466 105 332 215 568 35 506 480 317 326 ...</span></a>
+<a class="sourceLine" id="cb3-22" data-line-number="22"><span class="co">#&gt;  $ essay7                 : Factor w/ 750 levels "-out to dinner.&lt;br /&gt;\n-at the movies.&lt;br /&gt;\n-having drinks at a spot where i like the atmosphere.&lt;br /&gt;\n-coo"| __truncated__,..: 658 419 50 292 552 248 530 116 144 461 ...</span></a>
+<a class="sourceLine" id="cb3-23" data-line-number="23"><span class="co">#&gt;  $ essay8                 : Factor w/ 747 levels "-bad news everybody i received a message from the people of 2135,\nthey said the aliens attacked and devastated"| __truncated__,..: 254 704 622 548 709 497 347 298 76 42 ...</span></a>
+<a class="sourceLine" id="cb3-24" data-line-number="24"><span class="co">#&gt;  $ essay9                 : Factor w/ 743 levels "- &lt;em&gt;you think i'm the bee's knees&lt;/em&gt; (although obviously that\nwon't slim down the pool at all)&lt;br /&gt;\n- &lt;e"| __truncated__,..: 698 643 540 638 530 137 378 320 17 283 ...</span></a>
+<a class="sourceLine" id="cb3-25" data-line-number="25"><span class="co">#&gt;  $ tfidf_essay0_also      : num  0 0 0.0213 0.1888 0 ...</span></a>
+<a class="sourceLine" id="cb3-26" data-line-number="26"><span class="co">#&gt;  $ tfidf_essay0_always    : num  0 0 0 0 0 ...</span></a>
+<a class="sourceLine" id="cb3-27" data-line-number="27"><span class="co">#&gt;  $ tfidf_essay0_amp       : num  0.457 0.567 0 0 0 ...</span></a>
+<a class="sourceLine" id="cb3-28" data-line-number="28"><span class="co">#&gt;  $ tfidf_essay0_anything  : num  0 0 0.108 0 0 ...</span></a>
+<a class="sourceLine" id="cb3-29" data-line-number="29"><span class="co">#&gt;  $ tfidf_essay0_area      : num  0 0 0 0 0 ...</span></a>
+<a class="sourceLine" id="cb3-30" data-line-number="30"><span class="co">#&gt;  $ tfidf_essay0_around    : num  0 0 0.0327 0 0 ...</span></a>
+<a class="sourceLine" id="cb3-31" data-line-number="31"><span class="co">#&gt;  $ tfidf_essay0_art       : num  0 0 0 0 0 ...</span></a>
+<a class="sourceLine" id="cb3-32" data-line-number="32"><span class="co">#&gt;   [list output truncated]</span></a></code></pre></div>
 </div>
 <div id="type-chart" class="section level2">
 <h2 class="hasAnchor">
 <a href="#type-chart" class="anchor"></a>Type chart</h2>
-<p><strong>textrecipes</strong> includes a little departure in design from <strong>recipes</strong> in the sense that it allows some input and output to be in the form of list columns. To avoid confusion here is a table of steps with their expected input and output respectively. Notice how you need to end with numeric for future analysis to work.</p>
+<p><strong>textrecipes</strong> includes a little departure in design from <strong>recipes</strong> in the sense that it allows some input and output to be in the form of list columns. To avoind confusion here is a table of steps with their expected input and output respectively. Notice how you need to end with numeric for future analysis to work.</p>
 <table class="table">
 <thead><tr class="header">
 <th>Step</th>
@@ -198,19 +200,19 @@
 </tbody>
 </table>
 <p>This means that valid sequences includes</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/pkg/recipes/man/recipe.html">recipe</a></span>(<span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> data) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="reference/step_tokenize.html">step_tokenize</a></span>(text) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="reference/step_stem.html">step_stem</a></span>(text) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="reference/step_stopwords.html">step_stopwords</a></span>(text) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="st">  </span><span class="kw">step_topwords</span>(text) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="reference/step_tf.html">step_tf</a></span>(text)</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co"># or</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="kw"><a href="https://rdrr.io/pkg/recipes/man/recipe.html">recipe</a></span>(<span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> data) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="st">  </span><span class="kw"><a href="reference/step_tokenize.html">step_tokenize</a></span>(text) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="st">  </span><span class="kw"><a href="reference/step_stem.html">step_stem</a></span>(text) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="reference/step_tfidf.html">step_tfidf</a></span>(text)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/pkg/recipes/man/recipe.html">recipe</a></span>(<span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> data) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="reference/step_tokenize.html">step_tokenize</a></span>(text) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="reference/step_stem.html">step_stem</a></span>(text) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="reference/step_stopwords.html">step_stopwords</a></span>(text) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="st">  </span><span class="kw">step_topwords</span>(text) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="reference/step_tf.html">step_tf</a></span>(text)</a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co"># or</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="kw"><a href="https://rdrr.io/pkg/recipes/man/recipe.html">recipe</a></span>(<span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> data) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="st">  </span><span class="kw"><a href="reference/step_tokenize.html">step_tokenize</a></span>(text) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="st">  </span><span class="kw"><a href="reference/step_stem.html">step_stem</a></span>(text) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="st">  </span><span class="kw"><a href="reference/step_tfidf.html">step_tfidf</a></span>(text)</a></code></pre></div>
 </div>
 </div>
   </div>
