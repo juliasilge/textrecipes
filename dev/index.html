@@ -98,7 +98,7 @@
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
-<p><strong>textrecipes</strong> contains extra steps for the <a href="https://CRAN.R-project.org/package=recipes"><code>recipes</code></a> package for preprocessing text data.</p>
+<p><strong>textrecipes</strong> contain extra steps for the <a href="https://CRAN.R-project.org/package=recipes"><code>recipes</code></a> package for preprocessing text data.</p>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
@@ -112,7 +112,7 @@
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
-<p>In the following example we will go through the steps needed to convert a character variable to the TF-IDF of its tokenized words after removing stopwords and limeting ourself to only the 100 most used words. We will be conduction this preprosession on the variable <code>essay0</code> and <code>essay1</code>.</p>
+<p>In the following example we will go through the steps needed, to convert a character variable to the TF-IDF of its tokenized words after removing stopwords, and, limiting ourself to only the 100 most used words. The preprocessing will be conducted on the variable <code>essay0</code> and <code>essay1</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(recipes)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(textrecipes)</a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"></a>
@@ -149,7 +149,7 @@
 <div id="type-chart" class="section level2">
 <h2 class="hasAnchor">
 <a href="#type-chart" class="anchor"></a>Type chart</h2>
-<p><strong>textrecipes</strong> includes a little departure in design from <strong>recipes</strong> in the sense that it allows some input and output to be in the form of list columns. To avoind confusion here is a table of steps with their expected input and output respectively. Notice how you need to end with numeric for future analysis to work.</p>
+<p><strong>textrecipes</strong> includes a little departure in design from <strong>recipes</strong>, in the sense that it allows for some input and output to be in the form of list columns. To avoind confusion, here is a table of steps with their expected input and output respectively. Notice how you need to end with numeric for future analysis to work.</p>
 <table class="table">
 <thead><tr class="header">
 <th>Step</th>
@@ -195,6 +195,11 @@
 <tr class="even">
 <td><code>step_texthash</code></td>
 <td>list-column</td>
+<td>numeric</td>
+</tr>
+<tr class="odd">
+<td><code>step_textfeatures</code></td>
+<td>character</td>
 <td>numeric</td>
 </tr>
 </tbody>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Tokenization of character variables — step_tokenize • textrecipes</title>
+<title>Generate the basic set of text features — step_textfeature • textrecipes</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -31,9 +31,9 @@
 
 
 
-<meta property="og:title" content="Tokenization of character variables — step_tokenize" />
+<meta property="og:title" content="Generate the basic set of text features — step_textfeature" />
 
-<meta property="og:description" content="`step_tokenize` creates a *specification* of a recipe step that
+<meta property="og:description" content="`step_textfeature` creates a *specification* of a recipe step that
  will convert a character predictor into a list of tokens." />
 <meta name="twitter:card" content="summary" />
 
@@ -125,23 +125,23 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Tokenization of character variables</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidymodels/textrecipes/blob/master/R/tokenize.R'><code>R/tokenize.R</code></a></small>
-    <div class="hidden name"><code>step_tokenize.Rd</code></div>
+    <h1>Generate the basic set of text features</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidymodels/textrecipes/blob/master/R/textfeatures.R'><code>R/textfeatures.R</code></a></small>
+    <div class="hidden name"><code>step_textfeature.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>`step_tokenize` creates a *specification* of a recipe step that
+    <p>`step_textfeature` creates a *specification* of a recipe step that
  will convert a character predictor into a list of tokens.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>step_tokenize</span>(<span class='no'>recipe</span>, <span class='no'>...</span>, <span class='kw'>role</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>trained</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>columns</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>options</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='kw'>token</span> <span class='kw'>=</span> <span class='st'>"words"</span>,
-  <span class='kw'>custom_token</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'>rand_id</span>(<span class='st'>"tokenize"</span>))
+    <pre class="usage"><span class='fu'>step_textfeature</span>(<span class='no'>recipe</span>, <span class='no'>...</span>, <span class='kw'>role</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>trained</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>columns</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>extract_functions</span> <span class='kw'>=</span> <span class='no'>count_functions</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'>rand_id</span>(<span class='st'>"textfeature"</span>))
 
-<span class='co'># S3 method for step_tokenize</span>
+<span class='co'># S3 method for step_textfeature</span>
 <span class='fu'>tidy</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -155,7 +155,7 @@ sequence of operations for this recipe.</p></td>
     <tr>
       <th>...</th>
       <td><p>One or more selector functions to choose variables.
-For `step_tokenize`, this indicates the variables to be encoded
+For `step_textfeature`, this indicates the variables to be encoded
 into a list column. See [recipes::selections()] for more
 details. For the `tidy` method, these are not currently used.</p></td>
     </tr>
@@ -176,23 +176,10 @@ encoding. This is `NULL` until the step is trained by
 [recipes::prep.recipe()].</p></td>
     </tr>
     <tr>
-      <th>options</th>
-      <td><p>A list of options passed to the tokenizer.</p></td>
-    </tr>
-    <tr>
-      <th>token</th>
-      <td><p>Unit for tokenizing. Built-in options from the 
-[tokenizers] package are "words" (default), "characters",
-"character_shingles", "ngrams", "skip_ngrams", "sentences", 
-"lines", "paragraphs", "regex", "tweets" (tokenization by 
-word that preserves usernames, hashtags, and URLS ),  "ptb" 
-(Penn Treebank), "skip_ngrams" and  "word_stems".</p></td>
-    </tr>
-    <tr>
-      <th>custom_token</th>
-      <td><p>User supplied tokenizer. use of this argument
-will overwrite the token argument. Must take a character vector
-as input and output a list of character vectors.</p></td>
+      <th>extract_functions</th>
+      <td><p>A named list of feature extracting functions. 
+default to [count_functions] from the textfeatures package. See 
+details for more information.</p></td>
     </tr>
     <tr>
       <th>skip</th>
@@ -210,7 +197,7 @@ subsequent operations.</p></td>
     </tr>
     <tr>
       <th>x</th>
-      <td><p>A `step_tokenize` object.</p></td>
+      <td><p>A `step_textfeature` object.</p></td>
     </tr>
     </table>
     
@@ -221,18 +208,13 @@ subsequent operations.</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Tokenization is the act of splitting a character string into smaller parts
-to be further analysed. This step uses the `tokenizers` package which 
-includes heuristics to split the text into paragraphs tokens, word tokens
-amough others. `textrecipes` keeps the tokens in a list-column and other
-steps will do their tasks on those list-columns before transforming them
-back to numeric.</p>
-<p>Working will `textrecipes` will always start by calling `step_tokenize`
-followed by modifying and filtering steps.</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>[step_untokenize]</p></div>
+    <p>This step will take a character column and returns a number of numeric 
+columns equal to the number of functions in the list passed to the 
+`extract_functions` argument. The default is a list of functions from the 
+textfeatures package.</p>
+<p>All the functions passed to `extract_functions` must take a character vector
+as input and return a numeric vector of the same length, otherwise an error 
+will be thrown.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -241,46 +223,69 @@ followed by modifying and filtering steps.</p>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>okc_text</span>)
 
 <span class='no'>okc_rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>okc_text</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>step_tokenize</span>(<span class='no'>essay0</span>)
+  <span class='fu'>step_textfeature</span>(<span class='no'>essay0</span>)
 
 <span class='no'>okc_obj</span> <span class='kw'>&lt;-</span> <span class='no'>okc_rec</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>(<span class='kw'>training</span> <span class='kw'>=</span> <span class='no'>okc_text</span>, <span class='kw'>retain</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/juice.html'>juice</a></span>(<span class='no'>okc_obj</span>, <span class='no'>essay0</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>slice</span>(<span class='fl'>1</span>:<span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 1
-#&gt;   essay0     
-#&gt;   &lt;list&gt;     
-#&gt; 1 &lt;chr [184]&gt;
-#&gt; 2 &lt;chr [24]&gt; </div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/juice.html'>juice</a></span>(<span class='no'>okc_obj</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>slice</span>(<span class='fl'>1</span>:<span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 36
+#&gt;   essay1 essay2 essay3 essay4 essay5 essay6 essay7 essay8 essay9 essay0_n_words
+#&gt;   &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;           &lt;int&gt;
+#&gt; 1 "i ju… "writ… "that… "musi… "frie… "roma… "usua… "i ha… "you'…            185
+#&gt; 2 eatin… "pick… "i lo… "non-… "dese… "ever… makin… this … "you'…             24
+#&gt; # … with 26 more variables: essay0_n_uq_words &lt;int&gt;, essay0_n_charS &lt;int&gt;,
+#&gt; #   essay0_n_uq_charS &lt;int&gt;, essay0_n_digits &lt;int&gt;, essay0_n_hashtags &lt;int&gt;,
+#&gt; #   essay0_n_uq_hashtags &lt;int&gt;, essay0_n_mentions &lt;int&gt;,
+#&gt; #   essay0_n_uq_mentions &lt;int&gt;, essay0_n_commas &lt;int&gt;, essay0_n_periods &lt;int&gt;,
+#&gt; #   essay0_n_exclaims &lt;int&gt;, essay0_n_extraspaces &lt;int&gt;, essay0_n_caps &lt;int&gt;,
+#&gt; #   essay0_n_lowers &lt;int&gt;, essay0_n_urls &lt;int&gt;, essay0_n_uq_urls &lt;int&gt;,
+#&gt; #   essay0_n_nonasciis &lt;int&gt;, essay0_n_puncts &lt;int&gt;, essay0_politeness &lt;dbl&gt;,
+#&gt; #   essay0_first_person &lt;int&gt;, essay0_first_personp &lt;int&gt;,
+#&gt; #   essay0_second_person &lt;int&gt;, essay0_second_personp &lt;int&gt;,
+#&gt; #   essay0_third_person &lt;int&gt;, essay0_to_be &lt;int&gt;, essay0_prepositions &lt;int&gt;</div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/juice.html'>juice</a></span>(<span class='no'>okc_obj</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>slice</span>(<span class='fl'>2</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>pull</span>(<span class='no'>essay0</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt;  [1] "i'm"      "chill"    "and"      "steady"   "br"       "i'm"     
-#&gt;  [7] "a"        "teacher"  "amp"      "musician" "br"       "i"       
-#&gt; [13] "like"     "playing"  "outside"  "dislike"  "school"   "nights"  
-#&gt; [19] "br"       "and"      "i'm"      "very"     "very"     "lucky"   
-#&gt; </div><div class='input'>
+  <span class='fu'>pull</span>(<span class='no'>essay0_n_words</span>)</div><div class='output co'>#&gt; [1] 24</div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_rec</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
-#&gt;   terms  value id            
-#&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;         
-#&gt; 1 essay0 &lt;NA&gt;  tokenize_LMRz7</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
-#&gt;   terms      value id            
-#&gt;   &lt;quos&gt;     &lt;chr&gt; &lt;chr&gt;         
-#&gt; 1 essay0     words tokenize_LMRz7</div><div class='input'>
-<span class='no'>okc_obj_chars</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>okc_text</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>step_tokenize</span>(<span class='no'>essay0</span>, <span class='kw'>token</span> <span class='kw'>=</span> <span class='st'>"characters"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>(<span class='kw'>training</span> <span class='kw'>=</span> <span class='no'>okc_text</span>, <span class='kw'>retain</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+#&gt;   terms  functions id               
+#&gt;   &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;            
+#&gt; 1 essay0 &lt;NA&gt;      textfeature_vjF0H</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; # A tibble: 27 x 3
+#&gt;    terms  functions     id               
+#&gt;    &lt;chr&gt;  &lt;chr&gt;         &lt;chr&gt;            
+#&gt;  1 essay0 n_words       textfeature_vjF0H
+#&gt;  2 essay0 n_uq_words    textfeature_vjF0H
+#&gt;  3 essay0 n_charS       textfeature_vjF0H
+#&gt;  4 essay0 n_uq_charS    textfeature_vjF0H
+#&gt;  5 essay0 n_digits      textfeature_vjF0H
+#&gt;  6 essay0 n_hashtags    textfeature_vjF0H
+#&gt;  7 essay0 n_uq_hashtags textfeature_vjF0H
+#&gt;  8 essay0 n_mentions    textfeature_vjF0H
+#&gt;  9 essay0 n_uq_mentions textfeature_vjF0H
+#&gt; 10 essay0 n_commas      textfeature_vjF0H
+#&gt; # … with 17 more rows</div><div class='input'>
+<span class='co'># Using custom extraction functions</span>
+<span class='no'>nchar_round_10</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nchar.html'>nchar</a></span>(<span class='no'>x</span>) / <span class='fl'>10</span>) * <span class='fl'>10</span>
 
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/juice.html'>juice</a></span>(<span class='no'>okc_obj_chars</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>slice</span>(<span class='fl'>2</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>pull</span>(<span class='no'>essay0</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt;   [1] "i" "m" "c" "h" "i" "l" "l" "a" "n" "d" "s" "t" "e" "a" "d" "y" "&lt;" "b"
-#&gt;  [19] "r" "&gt;" "i" "m" "a" "t" "e" "a" "c" "h" "e" "r" "a" "m" "p" "m" "u" "s"
-#&gt;  [37] "i" "c" "i" "a" "n" "&lt;" "b" "r" "&gt;" "i" "l" "i" "k" "e" "p" "l" "a" "y"
-#&gt;  [55] "i" "n" "g" "o" "u" "t" "s" "i" "d" "e" "d" "i" "s" "l" "i" "k" "e" "s"
-#&gt;  [73] "c" "h" "o" "o" "l" "n" "i" "g" "h" "t" "s" "&lt;" "b" "r" "&gt;" "a" "n" "d"
-#&gt;  [91] "i" "m" "v" "e" "r" "y" "v" "e" "r" "y" "l" "u" "c" "k" "y"
-#&gt; </div></pre>
+<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>okc_text</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>step_textfeature</span>(<span class='no'>essay0</span>,
+                   <span class='kw'>extract_functions</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>nchar10</span> <span class='kw'>=</span> <span class='no'>nchar_round_10</span>)) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>(<span class='kw'>training</span> <span class='kw'>=</span> <span class='no'>okc_text</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/juice.html'>juice</a></span>()</div><div class='output co'>#&gt; # A tibble: 750 x 10
+#&gt;    essay1 essay2 essay3 essay4 essay5 essay6 essay7 essay8 essay9 essay0_nchar10
+#&gt;    &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;           &lt;dbl&gt;
+#&gt;  1 "i ju… "writ… "that… "musi… "frie… "roma… "usua… "i ha… "you'…           1000
+#&gt;  2 eatin… "pick… "i lo… "non-… "dese… "ever… makin… this … "you'…            140
+#&gt;  3 "rais… "proc… "my s… "sush… "my c… "movi… "at h… "on m… "you …           1940
+#&gt;  4 "i ju… "i've… my fa… "nove… "fami… how t… "havi… is th… you'd…            410
+#&gt;  5 i'm a… being… "that… "book… "- fr… "the … proba… "uhh.… you s…            380
+#&gt;  6 "i'm … "i'm … "the … "book… "guit… "a li… "hang… "i'm … "if y…           1540
+#&gt;  7 "well… "well… "eith… "i do… "1) m… "the … "out … "i ow… "you …           1700
+#&gt;  8 "i wo… "well… dimpl… "book… "1-la… "sex&lt;… "depe… i lik… "you …            850
+#&gt;  9 photo… eatin… my gl… donni… sushi… love.  drink… hm...  .                  20
+#&gt; 10 "occu… "livi… long … "film… yuzu,… "menu… "ofte… but i… "you …           3460
+#&gt; # … with 740 more rows</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -290,8 +295,6 @@ followed by modifying and filtering steps.</p>
       <li><a href="#value">Value</a></li>
 
       <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
