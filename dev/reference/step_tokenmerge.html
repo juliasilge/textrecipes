@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Untokenization of list-column variables — step_untokenize • textrecipes</title>
+<title>Generate the basic set of text features — step_tokenmerge • textrecipes</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -31,10 +31,11 @@
 
 
 
-<meta property="og:title" content="Untokenization of list-column variables — step_untokenize" />
+<meta property="og:title" content="Generate the basic set of text features — step_tokenmerge" />
 
-<meta property="og:description" content="`step_untokenize` creates a *specification* of a recipe step that
- will convert a list of tokens into a character predictor." />
+<meta property="og:description" content="`step_tokenmerge` creates a *specification* of a recipe step that
+ will take multiple list-columns of tokens and combine them into one 
+ list-column." />
 <meta name="twitter:card" content="summary" />
 
 <meta name="robots" content="noindex">
@@ -125,23 +126,24 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Untokenization of list-column variables</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidymodels/textrecipes/blob/master/R/untokenize.R'><code>R/untokenize.R</code></a></small>
-    <div class="hidden name"><code>step_untokenize.Rd</code></div>
+    <h1>Generate the basic set of text features</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidymodels/textrecipes/blob/master/R/tokenmerge.R'><code>R/tokenmerge.R</code></a></small>
+    <div class="hidden name"><code>step_tokenmerge.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>`step_untokenize` creates a *specification* of a recipe step that
- will convert a list of tokens into a character predictor.</p>
+    <p>`step_tokenmerge` creates a *specification* of a recipe step that
+ will take multiple list-columns of tokens and combine them into one 
+ list-column.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>step_untokenize</span>(<span class='no'>recipe</span>, <span class='no'>...</span>, <span class='kw'>role</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>trained</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>columns</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>" "</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'>rand_id</span>(<span class='st'>"untokenize"</span>))
+    <pre class="usage"><span class='fu'>step_tokenmerge</span>(<span class='no'>recipe</span>, <span class='no'>...</span>, <span class='kw'>role</span> <span class='kw'>=</span> <span class='st'>"predictor"</span>, <span class='kw'>trained</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>columns</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>prefix</span> <span class='kw'>=</span> <span class='st'>"tokenmerge"</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'>rand_id</span>(<span class='st'>"tokenmerge"</span>))
 
-<span class='co'># S3 method for step_untokenize</span>
+<span class='co'># S3 method for step_tokenmerge</span>
 <span class='fu'>tidy</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -155,14 +157,16 @@ sequence of operations for this recipe.</p></td>
     <tr>
       <th>...</th>
       <td><p>One or more selector functions to choose variables.
-For `step_untokenize`, this indicates the variables to be encoded
+For `step_tokenmerge`, this indicates the variables to be encoded
 into a list column. See [recipes::selections()] for more
 details. For the `tidy` method, these are not currently used.</p></td>
     </tr>
     <tr>
       <th>role</th>
-      <td><p>Not used by this step since no new variables are
-created.</p></td>
+      <td><p>For model terms created by this step, what analysis
+role should they be assigned?. By default, the function assumes
+that the new columns created by the original variables will be 
+used as predictors in a model.</p></td>
     </tr>
     <tr>
       <th>trained</th>
@@ -176,9 +180,8 @@ encoding. This is `NULL` until the step is trained by
 [recipes::prep.recipe()].</p></td>
     </tr>
     <tr>
-      <th>sep</th>
-      <td><p>a character to determine how the tokens should be seperated
-when pasted together. Defaults to `" "`.</p></td>
+      <th>prefix</th>
+      <td><p>A prefix for generated column names, default to "tokenmerge".</p></td>
     </tr>
     <tr>
       <th>skip</th>
@@ -192,11 +195,11 @@ subsequent operations.</p></td>
     </tr>
     <tr>
       <th>id</th>
-      <td><p>A character string that is unique to this step to identify it.</p></td>
+      <td><p>A character string that is unique to this step to identify it</p></td>
     </tr>
     <tr>
       <th>x</th>
-      <td><p>A `step_untokenize` object.</p></td>
+      <td><p>A `step_tokenmerge` object.</p></td>
     </tr>
     </table>
     
@@ -205,11 +208,6 @@ subsequent operations.</p></td>
     <p>An updated version of `recipe` with the new step added
  to the sequence of existing steps (if any).</p>
     
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>This steps will turn a tokenized list-column back into a character
-vector.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>recipes</span>)
@@ -217,29 +215,36 @@ vector.</p>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>okc_text</span>)
 
 <span class='no'>okc_rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(~ <span class='no'>.</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>okc_text</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='step_tokenize.html'>step_tokenize</a></span>(<span class='no'>essay0</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>step_untokenize</span>(<span class='no'>essay0</span>)
+  <span class='fu'><a href='step_tokenize.html'>step_tokenize</a></span>(<span class='no'>essay0</span>, <span class='no'>essay1</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>step_tokenmerge</span>(<span class='no'>essay0</span>, <span class='no'>essay1</span>)
 
 <span class='no'>okc_obj</span> <span class='kw'>&lt;-</span> <span class='no'>okc_rec</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/prep.html'>prep</a></span>(<span class='kw'>training</span> <span class='kw'>=</span> <span class='no'>okc_text</span>, <span class='kw'>retain</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/juice.html'>juice</a></span>(<span class='no'>okc_obj</span>, <span class='no'>essay0</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>slice</span>(<span class='fl'>1</span>:<span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 1
-#&gt;   essay0                                                                        
-#&gt;   &lt;fct&gt;                                                                         
-#&gt; 1 twice upon a time there was a boy who died twice and lived happily ever after…
-#&gt; 2 i'm chill and steady br i'm a teacher amp musician br i like playing outside …</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/juice.html'>juice</a></span>(<span class='no'>okc_obj</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>slice</span>(<span class='fl'>2</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>pull</span>(<span class='no'>essay0</span>)</div><div class='output co'>#&gt; [1] i'm chill and steady br i'm a teacher amp musician br i like playing outside dislike school nights br and i'm very very lucky
-#&gt; 750 Levels: _updates_ br br br i've written this as pretty much a big stream of info it's not in any way creative prose it's also not the ideal delivery mechanism but hopefully serves to give you some insight on who i am what i'm about where i'm going what i'm looking for and what's important to me br br humor i would say my humor is pretty unique i take things i have learned about a person and dream up scenarios where i play back my knowledge of her him in slightly exaggerated ways bringing in the context of the current moment and weaving in any and all additional persons around me i can use all that data i've been collecting about you your world and the greater universe and transform it into some vociferous laughter or so i say br br destroying banality with every breath br br br br gt now the schpeel br br i grew up rural only child dad immigrated from germany in his mid twenties mom has euro immigrant parents big but odd farm till adolescence i stayed in my home town for school then headed from east dc metro to west sf with a few years in palo alto menlo park san bruno for good in my late twenties general plan well established but new old challenges continue to press for a lifelong solution i've been here for about 12 years now minus travel time year in portland and two winters in tahoe including this one br br i've come to see art in everything and music and boundless energy sf bay is truly a bubble but a sustainable bubble of intellect soul and know how that shapes its world each and every day i am honored to be a part of that br br i am adventurous inventive and fiery ...</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_rec</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
-#&gt;   terms  value id              
-#&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;           
-#&gt; 1 essay0 &lt;NA&gt;  untokenize_hiYO6</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
-#&gt;   terms      value id              
-#&gt;   &lt;quos&gt;     &lt;chr&gt; &lt;chr&gt;           
-#&gt; 1 essay0     " "   untokenize_hiYO6</div></pre>
+<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/juice.html'>juice</a></span>(<span class='no'>okc_obj</span>)</div><div class='output co'>#&gt; # A tibble: 750 x 9
+#&gt;    essay2   essay3   essay4   essay5  essay6  essay7  essay8  essay9  tokenmerge
+#&gt;    &lt;fct&gt;    &lt;fct&gt;    &lt;fct&gt;    &lt;fct&gt;   &lt;fct&gt;   &lt;fct&gt;   &lt;fct&gt;   &lt;fct&gt;   &lt;list&gt;    
+#&gt;  1 "writin… "that i… "music:… "frien… "roman… "usual… "i hav… "you'r… &lt;chr [240…
+#&gt;  2 "pickin… "i look… "non-fi… "deser… "every… making… this w… "you'r… &lt;chr [28]&gt;
+#&gt;  3 "procra… "my smi… "sushi,… "my ce… "movin… "at ho… "on ma… "you t… &lt;chr [385…
+#&gt;  4 "i've b… my fash… "novels… "famil… how to… "havin… is tha… you'd … &lt;chr [104…
+#&gt;  5 being h… "that w… "books … "- fri… "the u… probab… "uhh..… you sh… &lt;chr [87]&gt;
+#&gt;  6 "i'm re… "the wa… "books … "guita… "a lit… "hangi… "i'm p… "if yo… &lt;chr [352…
+#&gt;  7 "well, … "either… "i don'… "1) my… "the e… "out w… "i own… "you a… &lt;chr [374…
+#&gt;  8 "welll.… dimples… "book-t… "1-lau… "sex&lt;b… "depen… i like… "you a… &lt;chr [228…
+#&gt;  9 eating … my glas… donnie … sushi.… love.   drinki… hm...   .       &lt;chr [5]&gt; 
+#&gt; 10 "living… long ha… "films&lt;… yuzu, … "menus… "often… but it… "you a… &lt;chr [610…
+#&gt; # … with 740 more rows</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_rec</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 3
+#&gt;   terms  value id            
+#&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;         
+#&gt; 1 essay0 &lt;NA&gt;  tokenize_LGGmr
+#&gt; 2 essay1 &lt;NA&gt;  tokenize_LGGmr</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 3
+#&gt;   terms      value id            
+#&gt;   &lt;quos&gt;     &lt;chr&gt; &lt;chr&gt;         
+#&gt; 1 essay0     words tokenize_LGGmr
+#&gt; 2 essay1     words tokenize_LGGmr</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -247,8 +252,6 @@ vector.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
