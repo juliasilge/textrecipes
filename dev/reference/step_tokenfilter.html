@@ -141,7 +141,7 @@
 
     <pre class="usage"><span class='fu'>step_tokenfilter</span>(<span class='no'>recipe</span>, <span class='no'>...</span>, <span class='kw'>role</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>trained</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>columns</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>max_times</span> <span class='kw'>=</span> <span class='fl'>Inf</span>, <span class='kw'>min_times</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>percentage</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>max_tokens</span> <span class='kw'>=</span> <span class='fl'>Inf</span>, <span class='kw'>res</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>percentage</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>max_tokens</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>res</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>skip</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'>rand_id</span>(<span class='st'>"tokenfilter"</span>))
 
 <span class='co'># S3 method for step_tokenfilter</span>
@@ -196,8 +196,7 @@ as a percentage instead of count.</p></td>
     <tr>
       <th>max_tokens</th>
       <td><p>An integer. Will only keep the top max_tokens tokens
-after filtering done by max_times and min_times. Defaults to Inf meaning all
-words in training will be used.</p></td>
+after filtering done by max_times and min_times. Defaults to 100.</p></td>
     </tr>
     <tr>
       <th>res</th>
@@ -236,9 +235,12 @@ on their occurance in the corpus. You are able to exclude tokens if they
 appear too many times or too fews times in the data. It can be specified
 as counts using `max_times` and `min_times` or as percentages by setting
 `percentage` as `TRUE`. In addition one can filter to only use the top
-`max_tokens` used tokens.</p>
-<p>It is advised to filter before using [step_tf] or [step_tfidf] to limit
-the number of variables created.</p>
+`max_tokens` used tokens. If `max_tokens` is set to `Inf` then all the tokens
+will be used. This will generally lead to very large datasets when then 
+tokens are words or trigrams. A good strategy is to start with a low token 
+count and go up according to how much RAM you want to use.</p>
+<p>It is strongly advised to filter before using [step_tf] or [step_tfidf] to 
+limit the number of variables created.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -259,17 +261,15 @@ the number of variables created.</p>
 
 <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/juice.html'>juice</a></span>(<span class='no'>okc_obj</span>, <span class='no'>essay0</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>slice</span>(<span class='fl'>1</span>:<span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 1
-#&gt;   essay0     
-#&gt;   &lt;list&gt;     
-#&gt; 1 &lt;chr [184]&gt;
-#&gt; 2 &lt;chr [24]&gt; </div><div class='input'>
+#&gt;   essay0    
+#&gt;   &lt;list&gt;    
+#&gt; 1 &lt;chr [83]&gt;
+#&gt; 2 &lt;chr [13]&gt;</div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/juice.html'>juice</a></span>(<span class='no'>okc_obj</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>slice</span>(<span class='fl'>2</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>pull</span>(<span class='no'>essay0</span>)</div><div class='output co'>#&gt; [[1]]
-#&gt;  [1] "i'm"      "chill"    "and"      "steady"   "br"       "i'm"     
-#&gt;  [7] "a"        "teacher"  "amp"      "musician" "br"       "i"       
-#&gt; [13] "like"     "playing"  "outside"  "dislike"  "school"   "nights"  
-#&gt; [19] "br"       "and"      "i'm"      "very"     "very"     "lucky"   
+#&gt;  [1] "i'm"  "and"  "br"   "i'm"  "a"    "br"   "i"    "like" "br"   "and" 
+#&gt; [11] "i'm"  "very" "very"
 #&gt; </div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_rec</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 3
 #&gt;   terms  value id               

@@ -239,7 +239,11 @@ subsequent operations.</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Term frequency-inverse document frequency is the product of two statistics.
+    <p>It is strongly advised to use [step_tokenfilter] before using [step_tfidf] to 
+limit the number of variables created, otherwise you might run into memmory
+issues. A good strategy is to start with a low token count and go up 
+according to how much RAM you want to use.</p>
+<p>Term frequency-inverse document frequency is the product of two statistics.
 The term frequency (TF) and the inverse document frequency (IDF).</p>
 <p>Term frequency is a weight of how many times each token appear in each 
 observation.</p>
