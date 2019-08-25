@@ -33,7 +33,9 @@
 
 <meta property="og:title" content="Calculates word2vec dimension estimates — step_word2vec" />
 
-<meta property="og:description" content="`step_word2vec` creates a *specification* of a recipe step that
+<meta property="og:description" content="character(0)
+
+`step_word2vec` creates a *specification* of a recipe step that
 will return the word2vec dimension estimates of a text variable." />
 <meta name="twitter:card" content="summary" />
 
@@ -132,7 +134,9 @@ will return the word2vec dimension estimates of a text variable." />
 
     <div class="ref-description">
     
-    <p>`step_word2vec` creates a *specification* of a recipe step that
+    <p>character(0)<a href='https://www.tidyverse.org/lifecycle/#experimental'><img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'></a>
+
+`step_word2vec` creates a *specification* of a recipe step that
 will return the word2vec dimension estimates of a text variable.</p>
     
     </div>
@@ -163,7 +167,7 @@ details. For the `tidy` method, these are not currently used.</p></td>
       <th>role</th>
       <td><p>For model terms created by this step, what analysis
 role should they be assigned?. By default, the function assumes
-that the new columns created by the original variables will be 
+that the new columns created by the original variables will be
 used as predictors in a model.</p></td>
     </tr>
     <tr>
@@ -179,8 +183,8 @@ encoding. This is `NULL` until the step is trained by
     </tr>
     <tr>
       <th>lda_models</th>
-      <td><p>A WarpLDA model object from the text2vec package. If left 
-to NULL, the default, will it train its model based on the training data. 
+      <td><p>A WarpLDA model object from the text2vec package. If left
+to NULL, the default, will it train its model based on the training data.
 Look at the examples for how to fit a WarpLDA model.</p></td>
     </tr>
     <tr>
@@ -210,6 +214,10 @@ subsequent operations.</p></td>
       <td><p>A `step_word2vec` object.</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+
+    <p><a href='https://arxiv.org/abs/1301.3781'>https://arxiv.org/abs/1301.3781</a></p>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -314,6 +322,8 @@ subsequent operations.</p></td>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#source">Source</a></li>
+
       <li><a href="#value">Value</a></li>
       
       <li><a href="#examples">Examples</a></li>
