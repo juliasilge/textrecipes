@@ -32,10 +32,10 @@
 
 
 <meta property="og:title" content="Stemming of list-column variables — step_stem" />
-
 <meta property="og:description" content="`step_stem` creates a *specification* of a recipe step that
  will convert a list of tokens into a list of stemmed tokens." />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -131,10 +131,8 @@
     </div>
 
     <div class="ref-description">
-    
     <p>`step_stem` creates a *specification* of a recipe step that
  will convert a list of tokens into a list of stemmed tokens.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>step_stem</span>(<span class='no'>recipe</span>, <span class='no'>...</span>, <span class='kw'>role</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>trained</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>columns</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -143,7 +141,7 @@
 
 <span class='co'># S3 method for step_stem</span>
 <span class='fu'>tidy</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -203,12 +201,11 @@ subsequent operations.</p></td>
       <td><p>A `step_stem` object.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An updated version of `recipe` with the new step added
  to the sequence of existing steps (if any).</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Words tend to have different forms depending on context, such as
@@ -218,11 +215,9 @@ words. Stemming is the act of choping off the end of words using a set
  of heuristics.</p>
 <p>Note that the steming will only be done at the end of the string and 
 will therefore not work reliably on ngrams or sentences.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>[step_stopwords()] [step_tokenfilter()] [step_tokenize()]</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>recipes</span>)
@@ -287,13 +282,9 @@ will therefore not work reliably on ngrams or sentences.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

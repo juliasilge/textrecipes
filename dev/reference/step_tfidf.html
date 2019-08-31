@@ -32,11 +32,11 @@
 
 
 <meta property="og:title" content="Term frequency-inverse document frequency of tokens — step_tfidf" />
-
 <meta property="og:description" content="`step_tfidf` creates a *specification* of a recipe step that
  will convert a list of tokens into multiple variables containing
  the Term frequency-inverse document frequency of tokens." />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -132,11 +132,9 @@
     </div>
 
     <div class="ref-description">
-    
     <p>`step_tfidf` creates a *specification* of a recipe step that
  will convert a list of tokens into multiple variables containing
  the Term frequency-inverse document frequency of tokens.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>step_tfidf</span>(<span class='no'>recipe</span>, <span class='no'>...</span>, <span class='kw'>role</span> <span class='kw'>=</span> <span class='st'>"predictor"</span>, <span class='kw'>trained</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -146,7 +144,7 @@
 
 <span class='co'># S3 method for step_tfidf</span>
 <span class='fu'>tidy</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -231,12 +229,11 @@ subsequent operations.</p></td>
       <td><p>A `step_tfidf` object.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An updated version of `recipe` with the new step added
  to the sequence of existing steps (if any).</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>It is strongly advised to use [step_tokenfilter] before using [step_tfidf] to 
@@ -258,14 +255,13 @@ us differentiate the observations.</p>
 the name of the variable, followed by the tokens all seperated by
 `-`. The new variables will be created alphabetically according to
 token.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>[step_hashing()] [step_tf()] [step_tokenize()]</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>recipes</span>)
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>recipes</span>)
 
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>okc_text</span>)
 
@@ -335,19 +331,16 @@ token.</p>
 #&gt; 1 essay0 tfidf_NaBGg</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/recipes/man/reexports.html'>tidy</a></span>(<span class='no'>okc_obj</span>, <span class='kw'>number</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 2
 #&gt;   terms      id         
 #&gt;   &lt;quos&gt;     &lt;chr&gt;      
-#&gt; 1 essay0     tfidf_NaBGg</div></pre>
+#&gt; 1 essay0     tfidf_NaBGg</div><div class='input'># }
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
